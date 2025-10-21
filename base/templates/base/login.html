@@ -1,0 +1,20 @@
+{% extends 'base/principal.html' %}
+{% block title %}Ingresar{% endblock title %}
+{% block content %}
+  <div class="pad stack">
+    <h2 style="margin:0; font-family:'Quicksand',sans-serif;">Ingresar</h2>
+    {% if form.non_field_errors %}
+      <div class="note">{{ form.non_field_errors }}</div>
+    {% endif %}
+    <form class="form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="row">
+        <div class="grow"></div>
+        <button class="btn btn-primary" type="submit">Entrar</button>
+      </div>
+    </form>
+    <div class="divider"></div>
+    <p class="center note">¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate</a></p>
+  </div>
+{% endblock content %}

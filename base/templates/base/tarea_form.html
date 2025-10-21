@@ -1,0 +1,19 @@
+{% extends 'base/principal.html' %}
+{% block title %}Formulario de tarea{% endblock title %}
+{% block content %}
+  <div class="toolbar">
+    <a class="btn" href="{% url 'tareas' %}">← Volver</a>
+    <div class="grow"></div>
+    <span class="muted">Completa los campos y guarda</span>
+  </div>
+  <div class="pad">
+    <form class="form" method="post" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="row">
+        <div class="grow"></div>
+        <button class="btn btn-primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

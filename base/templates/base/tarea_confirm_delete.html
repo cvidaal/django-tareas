@@ -1,0 +1,24 @@
+{% extends 'base/principal.html' %}
+{% block title %}Eliminar tarea{% endblock title %}
+{% block content %}
+  <div class="toolbar">
+    <a class="btn" href="{% url 'tareas' %}">← Volver</a>
+    <div class="grow"></div>
+  </div>
+  <div class="pad stack">
+    <h2 style="margin:0; font-family:'Quicksand',sans-serif;">¿Eliminar esta tarea?</h2>
+    <p class="note">Vas a eliminar permanentemente: <strong>"{{ tarea }}"</strong></p>
+    <form class="form" method="post">
+      {% csrf_token %}
+      <div class="row">
+        <a class="btn" href="{% url 'tareas' %}">Cancelar</a>
+        <div class="grow"></div>
+        <button class="btn btn-danger" type="submit">Eliminar definitivamente</button>
+      </div>
+    </form>
+  </div>
+{% endblock content %}
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'base/principal.html' %}
+{% block title %}Lista de tareas{% endblock title %}
+{% block content %}
+
+
+<div class="toolbar">
+<div class="badge">Tienes <strong>{{ count }}</strong> tarea{{ count|pluralize }} incompleta{{ count|pluralize }}</div>
+<div class="grow">
+<form method="get">
+<input class="input" type="text" name="area-buscar" placeholder="Buscar por título…" value="{{ valor_buscado }}" />
+</form>
+</div>
+<div>
+<a class="btn btn-primary" href="{% url 'crear-tarea' %}">+ Crear tarea</a>
+</div>
+</div>
+
+
+<div class="tasks">
+{% for tarea in tareas %}
+<div class="task {% if tarea.completo %}is-complete{% endif %}">
+<div class="task-title">
+<span class="check">{% if tarea.completo %}✓{% endif %}</span>
+<a class="task-link" href="{% url 'editar-tarea' tarea.id %}">{{ tarea.titulo }}</a>
+</div>
+<div class="task-actions">
+<a class="icon-btn icon-danger" title="Eliminar" href="{% url 'eliminar-tarea' tarea.id %}">✕</a>
+</div>
+</div>
+{% empty %}
+<div class="empty">
+<h3>No hay elementos en la lista</h3>
+<p class="muted">Crea tu primera tarea para empezar a organizarte.</p>
+<p class="right"><a class="btn btn-primary" href="{% url 'crear-tarea' %}">Crear tarea</a></p>
+</div>
+{% endfor %}
+</div>
+
+
+{% endblock content %}

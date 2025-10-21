@@ -1,0 +1,181 @@
+<!-- FILE: base/principal.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Tareas pendientes{% endblock title %}</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --------- Design tokens --------- */
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #101318;
+      --muted: #6b7785;
+      --primary: #196FB0; /* azul principal */
+      --primary-2: #5BACE3; /* degradado */
+      --border: #e5e9f0;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --radius: 12px;
+      --shadow: 0 10px 24px -12px rgba(0,0,0,.20);
+    }
+
+    /* --------- Base --------- */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Roboto', system-ui, -apple-system, Segoe UI, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* --------- Layout --------- */
+    .shell {
+      max-width: 860px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    /* --------- Topbar --------- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: linear-gradient(90deg, var(--primary-2) 0%, var(--primary) 100%);
+      color: #fff;
+    }
+    .topbar h1 { font: 700 20px/1 'Quicksand', sans-serif; margin: 0; letter-spacing:.2px; }
+    .topbar .hello { font-weight: 500; opacity:.95; }
+    .topbar form { margin: 0; }
+
+    /* --------- Buttons --------- */
+    .btn { appearance: none; border: 1px solid transparent; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .btn-primary { background: #fff; color: var(--primary); border-color: rgba(255,255,255,.35); }
+    .btn-primary:hover { filter: brightness(.96); }
+    .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+
+    /* --------- Toolbar (acciones) --------- */
+    .toolbar { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); background: #fafcff; }
+    .toolbar .grow { flex: 1; }
+
+    .input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+      font: inherit;
+    }
+    .input:focus { border-color: var(--primary-2); box-shadow: 0 0 0 3px rgba(25,111,176,.15); }
+
+    /* --------- Lista de tareas --------- */
+    .tasks { display: grid; grid-template-columns: 1fr; }
+
+    .task {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+    .task:first-child { border-top: none; }
+
+    .task-title { display: flex; align-items: center; gap: 12px; }
+    .check {
+      width: 22px; height: 22px; border-radius: 999px; border: 2px solid var(--border); display: inline-flex; align-items:center; justify-content:center;
+    }
+    .task.is-complete .check { background: rgba(34,197,94,.12); border-color: var(--success); }
+    .task.is-complete .task-link { color: var(--muted); text-decoration: line-through; }
+
+    .task-actions { display: inline-flex; align-items: center; gap: 6px; }
+    .icon-btn { width: 36px; height: 36px; display: inline-grid; place-items:center; border-radius: 10px; border: 1px solid var(--border); background:#fff; cursor:pointer; }
+    .icon-btn:hover { background: #f6f8fb; }
+    .icon-danger { color: var(--danger); border-color: rgba(239, 68, 68, .35); }
+
+    /* --------- Empty state --------- */
+    .empty { text-align: center; padding: 40px 20px; color: var(--muted); }
+    .empty h3 { font-family: 'Quicksand', sans-serif; margin: 0 0 6px; }
+
+    /* --------- Helpers --------- */
+    .stack { display: grid; gap: 14px; }
+    .right { text-align: right; }
+    .muted { color: var(--muted); }
+    .badge { display: inline-flex; align-items:center; gap:6px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.25); color:#fff; font-weight:600; }
+      /* --------- Forms --------- */
+    .pad { padding: 20px; }
+    .center { text-align: center; }
+    form.form { display: grid; gap: 12px; }
+    form.form p { margin: 0; }
+    form.form label { font-weight: 600; font-size: .95rem; color: var(--text); }
+    form.form input[type="text"],
+    form.form input[type="password"],
+    form.form input[type="email"],
+    form.form input[type="search"],
+    form.form input[type="datetime-local"],
+    form.form textarea,
+    form.form select {
+      background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font: inherit; outline: none;
+    }
+    form.form input:focus, form.form textarea:focus, form.form select:focus {
+      border-color: var(--primary-2); box-shadow: 0 0 0 3px rgba(25,111,176,.15);
+    }
+    .btn-danger { background: var(--danger); color: #fff; border-color: transparent; }
+    .btn-danger:hover { filter: brightness(.95); }
+    .row { display: flex; gap: 10px; align-items: center; }
+    .row .grow { flex: 1; }
+    .note { color: var(--muted); font-size: .95rem; }
+    .divider { height: 1px; background: var(--border); margin: 10px 0 0; }
+
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card">
+      <div class="topbar">
+        <h1>Mis tareas</h1>
+        <div class="hello">
+          {% if request.user.is_authenticated %}
+            Hola, <strong>{{ request.user|title }}</strong>
+          {% else %}
+            Invitado
+          {% endif %}
+        </div>
+        <div>
+          {% if request.user.is_authenticated %}
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-ghost" type="submit">Salir</button>
+            </form>
+          {% else %}
+            <a class="btn btn-ghost" href="{% url 'login' %}">Ingresar</a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% block content %}{% endblock content %}
