@@ -63,13 +63,6 @@ Permite **registrar usuarios**, **iniciar sesión**, **crear, editar, eliminar y
 
 ---
 
-## 🖼️ Capturas de pantalla
-
-| Inicio | Formulario | Login |
-|:------:|:-----------:|:-----:|
-| ![Lista de tareas](screenshots/home.png) | ![Crear tarea](screenshots/form.png) | ![Login](screenshots/login.png) |
-
-*(Crea una carpeta `screenshots` y guarda ahí tus imágenes si quieres mostrar el proyecto visualmente)*
 
 ---
 
@@ -77,7 +70,7 @@ Permite **registrar usuarios**, **iniciar sesión**, **crear, editar, eliminar y
 
 **Carlos Vidal**  
 📧 [tuemail@ejemplo.com](mailto:tuemail@ejemplo.com)  
-💼 [LinkedIn](https://www.linkedin.com/in/tuusuario) • [GitHub](https://github.com/tuusuario)
+💼 [LinkedIn](https://www.linkedin.com/in/carlosvidaldev) • [GitHub](https://github.com/cvidaal)
 
 ---
 
